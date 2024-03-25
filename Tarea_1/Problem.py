@@ -18,6 +18,9 @@ class Problem:
 
     #Tasks associated with each project
     T: list[list[bool]] = []
+
+    #Number of tasks associated with each project
+    NT: list[int] = []
             
 
     def __init__(self, dataPath: str) -> None:
@@ -46,6 +49,7 @@ class Problem:
                 #Removes the last element, which can be "\n" or "".
                 row.pop()
                 row = list(map(int, row))
+                self.NT.append(sum(row))
                 self.T.append(row)
     
     def _get_parameters(self):
@@ -54,9 +58,10 @@ class Problem:
         print(f"B = {self.B}")
         print(f"g = {self.g}")
         print(f"c = {self.c}")
+        print(f"NT = {self.NT}")
         #print(f"T = {self.T}")
 
-    def _check_restrictions(X: list, Y: list):
+    def _check_restrictions(self, X: list, Y: list):
         pass
 
     def _get_FO_value(self, X: list):
