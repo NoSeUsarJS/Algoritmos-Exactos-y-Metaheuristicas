@@ -3,12 +3,12 @@ from Node import Node
 class Tree:
     root: Node = None
 
-    def __init__(self, X, Y):
-        new_node = Node(X, Y)
+    def __init__(self, X):
+        new_node = Node(X)
         self.root = new_node
     
-    def _add_child(self, X, Y):
-        new_node = Node(X, Y)
+    def _add_child(self, X):
+        new_node = Node(X)
         new_node.parent = self.root
         self.root.children.append(new_node)
     
