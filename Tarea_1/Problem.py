@@ -1,4 +1,4 @@
-from functools import lru_cache
+from math import prod
 
 class Problem:
     #Number of projects
@@ -18,9 +18,6 @@ class Problem:
 
     #Tasks associated with each project
     T: list[list[bool]] = []
-
-    #Number of tasks associated with each project
-    NT: list[int] = []
             
 
     def __init__(self, data_path: str) -> None:
@@ -49,7 +46,6 @@ class Problem:
                 #Removes the last element, which can be "\n" or "".
                 row.pop()
                 row = list(map(int, row))
-                self.NT.append(sum(row))
                 self.T.append(row)
     
     def _get_parameters(self):
@@ -58,22 +54,16 @@ class Problem:
         print(f"B = {self.B}")
         print(f"g = {self.g}")
         print(f"c = {self.c}")
-        print(f"NT = {self.NT}")
         #print(f"T = {self.T}")
 
-    def _check_restrictions(self, X: list, Y: list) -> bool:
-        sum_Y_and_c = sum([a * b for a, b in zip(Y, self.c)])
+    def _check_restrictions(self, X: list) -> bool:
+        restriction_1 = sum(
+            prod([self.T[i][k] * X[i] for i in range(self.m)]) * self.c[k]
+            for k in range(self.n)
+        )
 
-        if sum_Y_and_c > self.B:
+        if restriction_1 > self.B:
             return False
-
-        for i in range(self.m):
-            sum_T_and_Y = sum([a * b for a, b in zip(self.T[i], Y)])
-            for k in range(self.n):
-                if self.T[i][k] * Y[k] != X[i]:
-                    return False
-                if self.NT[i] * X[i] != sum_T_and_Y:
-                    return False
                 
         return True
 
