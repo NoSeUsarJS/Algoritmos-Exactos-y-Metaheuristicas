@@ -4,12 +4,12 @@ from Problem import Problem
 class MFC:
     tree: Tree = None
     problem: Problem = None
+    
 
-    def __init__(self, data_path, start_X, start_Y) -> None:
-        self.tree = Tree(start_X, start_Y)
+    def __init__(self, data_path, start_X) -> None:
+        self.tree = Tree(start_X)
         self.problem = Problem(data_path)
     
-    def _run():
+    def run(self):
+        #Step 1
         pass
-
-    
