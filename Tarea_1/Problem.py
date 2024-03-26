@@ -23,9 +23,9 @@ class Problem:
     NT: list[int] = []
             
 
-    def __init__(self, dataPath: str) -> None:
-        with open(dataPath, "r") as data:
-            data = open(dataPath, "r")
+    def __init__(self, data_path: str) -> None:
+        with open(data_path, "r") as data:
+            data = open(data_path, "r")
 
             self.m = int(data.readline())
             self.n = int(data.readline())
