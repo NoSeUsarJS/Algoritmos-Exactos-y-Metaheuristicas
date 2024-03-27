@@ -66,6 +66,19 @@ class Problem:
             return False
                 
         return True
+    
+    def _check_restrictions(self, X: dict):
+        restriction = 0
+        for k in range(self.n):
+            product = 1
+            for i, value in X:
+                product *= self.T[i][k] * value
+            restriction += self.c[k] * product
+        
+        if restriction > self.B:
+            return False
+        
+        return True
 
     def _get_FO_value(self, X: list):
         FO_value = sum([a * b for a, b in zip(X, self.g)])

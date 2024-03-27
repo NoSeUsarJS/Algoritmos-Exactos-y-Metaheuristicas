@@ -1,7 +1,11 @@
 class Node:
-    values: dict
+    value: int
+    index: int
+    solution: dict[int,int] = None
     parent = None
-    children: list = []
+    child = None
 
-    def __init__(self, X) -> None:
-        self.values = X
+    def __init__(self, X, index, solution) -> None:
+        self.value = X
+        self.index = index
+        self.solution = solution
