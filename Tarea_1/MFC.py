@@ -1,7 +1,9 @@
 from Problem import Problem
 from Node import Node
 from os import system
+import time
 
+ini = time.time()
 class MFC:
     problem: Problem = None
     X_domain: list[list[int]] = None
@@ -11,6 +13,9 @@ class MFC:
     max_FO_value: int = None
     nodes: list[Node] = []
     filtered_domain: list[list[int]] = None
+    
+    Max_Fo_time: list = []
+    Time: list = []
 
     def __init__(self, data_path) -> None:
         self.problem = Problem(data_path)
@@ -19,6 +24,7 @@ class MFC:
         self.X_domain = [[1,0]] * self.m
         self.X = [0] * self.m
         self.max_FO_value = 0
+
 
     def _look_forward(self, entry_index, value, entry_dom: list):
         for j in range(entry_index+1, self.m):
@@ -35,6 +41,9 @@ class MFC:
                     if self.max_FO_value < fo:
                         self.max_FO_value = fo
                         print(f"Max FO: {self.max_FO_value}")
+                        self.Max_Fo_time.append(fo)
+                        fin=time.time()
+                        self.Time.append(fin-ini)
                     return current_dom
                 else:
                     current_dom[j].remove(test_value)
