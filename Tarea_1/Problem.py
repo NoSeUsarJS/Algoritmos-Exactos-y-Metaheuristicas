@@ -55,16 +55,21 @@ class Problem:
         print(f"g = {self.g}")
         print(f"c = {self.c}")
         #print(f"T = {self.T}")
-
-    def _check_restrictions(self, X: list) -> bool:
-        restriction_1 = sum(
-            prod([self.T[i][k] * X[i] for i in range(self.m)]) * self.c[k]
-            for k in range(self.n)
-        )
-
-        if restriction_1 > self.B:
+    
+    def _check_restrictions(self, X: list):
+        restriction = 0
+        for k in range(self.n):
+            inner_sum = 0
+            for i in range(self.m):
+                inner_sum += self.T[i][k] * X[i]
+                if inner_sum > 0:
+                    inner_sum = 1
+                    break
+            restriction += self.c[k] * inner_sum
+        print(f"Cost: {restriction}")
+        if restriction > self.B:
             return False
-                
+        
         return True
 
     def _get_FO_value(self, X: list):

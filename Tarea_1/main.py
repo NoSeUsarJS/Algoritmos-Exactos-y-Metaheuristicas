@@ -1,8 +1,6 @@
-from Problem import Problem
-from random import randint
+from MFC import MFC
 
 
 #TESTING
-problem = Problem("./data/1-2024.txt")
-
-problem._get_parameters()
+mfc = MFC("./data/1-2024.txt")
+mfc.run()
