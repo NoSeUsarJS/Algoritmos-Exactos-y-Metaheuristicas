@@ -1,11 +1,7 @@
 class Node:
-    value: int
-    index: int
-    solution: dict[int,int] = None
-    parent = None
-    child = None
+    index: int = None
+    dom: list[list[int]] = None
 
-    def __init__(self, X, index, solution) -> None:
-        self.value = X
+    def __init__(self, index, dom) -> None:
         self.index = index
-        self.solution = solution
+        self.dom = dom
