@@ -2,6 +2,7 @@ from Problem import Problem
 from Node import Node
 import threading
 import time
+from os import system
 
 mutex = threading.Lock()
 
@@ -46,6 +47,11 @@ class MFC:
         
         try:
             while True:
+                print(f"Max FO: {self.Max_Fo_time[-1]} at {round(self.Time[-1],1)} seconds.")
+                fin=time.time()
+                print(f"Current time: {round(fin-ini, 1)} s")
+                time.sleep(0.865)
+                system('cls')
                 pass
         except KeyboardInterrupt:
             self.stop_threads = True
@@ -65,10 +71,9 @@ class MFC:
             with mutex:
                 if self.max_FO_value < fo:
                     self.max_FO_value = fo
-                    print(f"Max FO: {self.max_FO_value}")
+                    #print(f"Max FO: {self.max_FO_value}")
                     self.Max_Fo_time.append(fo)
                     fin=time.time()
-                    print(f"Current time: {round(fin-ini, 1)} s")
                     self.Time.append(fin-ini)
         
         for i in range(current_index, end_index):
