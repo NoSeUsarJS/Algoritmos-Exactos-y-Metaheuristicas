@@ -1,5 +1,3 @@
-from math import prod
-
 class Problem:
     #Number of projects
     m: int = None
@@ -66,7 +64,6 @@ class Problem:
                     inner_sum = 1
                     break
             restriction += self.c[k] * inner_sum
-        print(f"Cost: {restriction}")
         if restriction > self.B:
             return False
         
