@@ -1,20 +1,30 @@
 from sklearn.cluster import KMeans
 import numpy as np
+from MFC import MFC
+from Problem import Problem
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
 
-# Genera algunos datos de ejemplo
-X = np.array([[1, 2], [5, 8], [1.5, 1.8], [8, 8], [1, 0.6], [9, 11]]) #Agregar aqui los datos generados por el MFC?
 
-# Especifica el número de clústeres
-kmeans = KMeans(n_clusters=4) # importante en base al modelo 
+problem = Problem("./data/1-2024.txt")
 
-# Entrena el modelo K-means
+Arreglo__Kmeans = []
+for i in range(1,problem.m+1):
+    Arreglo__Kmeans.append([i, problem.g[i-1]])#Cambiar la g a NT o a T para ver otros casos, Para T habria q crear otra funcion
+
+X = np.array(Arreglo__Kmeans) 
+kmeans = KMeans(n_clusters=4) 
 kmeans.fit(X)
-
-# Obtiene las etiquetas de los clústeres
-labels = kmeans.labels_
-
-# Obtiene los centroides de los clústeres
+labels = kmeans.labels_ # Como redistribuyo los datos (a q cluster pertenecen)
 centroids = kmeans.cluster_centers_
 
 print("Labels:", labels)
 print("Centroids:", centroids)
+
+plt.scatter(X[:, 0], X[:, 1], c=labels, cmap='viridis', alpha=0.6)
+plt.scatter(centroids[:, 0], centroids[:, 1], c='red', marker='x', s=100, label='Centroids')
+plt.xlabel('Proyecto')
+plt.ylabel('Ganancia del proyecto')
+plt.title('Clustering K-means')
+plt.legend()
+plt.show()
