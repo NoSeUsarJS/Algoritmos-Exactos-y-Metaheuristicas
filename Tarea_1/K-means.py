@@ -47,7 +47,7 @@ for indice, valor in enumerate(labels):
         indices.append(indice)
 #print(indices)
 
-print(len(indices))
+#print(len(indices))
 
 ganancias=[]
 Tareas = []
@@ -62,17 +62,17 @@ nuevo_txt.append(problem.B)
 for j in range(len(indices)):
     ganancias.append(problem.g[indices[j]])
 nuevo_txt.append(ganancias)
-print("la ganancia es ",len(ganancias))
-print(len(nuevo_txt[3]))
+#print("la ganancia es ",len(ganancias))
+#print(len(nuevo_txt[3]))
 nuevo_txt.append(problem.c)
-print("costos",len(problem.c))
-print(len(nuevo_txt[4]))
+#print("costos",len(problem.c))
+#print(len(nuevo_txt[4]))
 for c in range(len(indices)):   
     Tareas.append(problem.T[indices[c]])
 nuevo_txt.append(Tareas)
 
-print("numero de tareas",len(Tareas))
-print(len(nuevo_txt[5]))
+#print("numero de tareas",len(Tareas))
+#print(len(nuevo_txt[5]))
 
 #print(nuevo_txt)
 
@@ -81,12 +81,14 @@ def Escribirtxt(numero, archivo):
         #f.write(str(type(numero)) + '\n')
         f.write(str(numero[0]) + '\n')
         f.write(str(numero[1]) + '\n')
-        f.write(str(numero[2]) + '\n')
-        f.write(Escribir_linea(numero[3]) + '\n')
-        f.write(Escribir_linea(numero[4]) + '\n')
+        f.write(str(numero[2]) + '  \n')
+        f.write(Escribir_linea(numero[3]) + ' \n')
+        f.write(Escribir_linea(numero[4]) + ' \n')
         for i in range(len(numero[5])):
-            f.write(Escribir_linea(numero[5][i]) + '\n')
-        
+            if i == len(numero[5]):
+                f.write(Escribir_linea(numero[5][i]) + ' ')
+            else:
+                f.write(Escribir_linea(numero[5][i]) + ' \n')
 
 def Escribir_linea(numero):
     # Cocatenar todos los elementos del array en una sola línea
