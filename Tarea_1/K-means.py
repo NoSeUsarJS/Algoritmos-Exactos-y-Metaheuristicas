@@ -9,7 +9,7 @@ problem = Problem("./data/2-2024.txt")
 
 Arreglo__Kmeans = []
 for i in range(1,problem.m+1):
-    Arreglo__Kmeans.append([i, problem.g[i-1]])#Cambiar la g a NT T[i-1].count(1)
+    Arreglo__Kmeans.append([i, problem.T[i-1].count(1)])#Cambiar la g a NT T[i-1].count(1)
 
 X = np.array(Arreglo__Kmeans) 
 n_clusters=4
@@ -96,4 +96,4 @@ def Escribir_linea(numero):
     # Escribir la línea en el archivo
     return(linea)
 
-Escribirtxt(nuevo_txt, "2-2024_mejor.txt")
+Escribirtxt(nuevo_txt, "2-2024_mejor_2.txt")

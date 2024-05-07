@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 #TESTING
 inicio = time.time()
-mfc = MFC("./2-2024_mejor.txt")
+mfc = MFC("./2-2024_mejor_2.txt")
 mfc.run(3) #Maximum speed with 3 threads
 mfc.stop_threads = True
 time.sleep(1)
