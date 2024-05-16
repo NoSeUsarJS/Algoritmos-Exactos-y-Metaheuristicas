@@ -34,8 +34,3 @@ def read_data(data_path: str) -> dict:
             "installation_cost": installation_cost,
             "clinic_demand_places": clinic_demand_places
         }
-
-
-
-
-print(read_data("data/C1.txt"))
