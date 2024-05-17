@@ -1,32 +1,46 @@
 import random
+from Problem import DataNode 
 
-def objective_function(x):
-    """ Función objetivo de ejemplo. Aquí puedes definir tu propia función a maximizar o minimizar. """
-    return -(x ** 2)  # Queremos encontrar el máximo de esta función
+data_node = DataNode.ReadData("data/C1.txt")
 
-def hill_climbing(max_iter=1000, step_size=0.1):
-    """ Algoritmo de Hill Climbing para maximizar una función. """
-    # Comenzamos desde un punto aleatorio
-    current_solution = random.uniform(-10, 10)
-    print("Punto de inicio:", current_solution)
-    
-    for i in range(max_iter):
-        # Evaluamos el valor actual
-        current_value = objective_function(current_solution)
+
+Verificador = []
+
+FO = 0
+
+def dividir_lista(lista):
+    if len(lista) != 1:
+        punto_medio = len(lista) // 2
+        primera_mitad = lista[:punto_medio]
+        segunda_mitad = lista[punto_medio:]
+        Aleatorio = random.random()
+        if Aleatorio <= 0.9:
+            return dividir_lista(primera_mitad)
+        else:
+            return dividir_lista(segunda_mitad)
+    else:
+        return lista[0]
         
-        # Generamos un nuevo punto vecino
-        new_solution = current_solution + random.uniform(-step_size, step_size)
-        new_value = objective_function(new_solution)
-        
-        # Si el nuevo valor es mejor, actualizamos la solución actual
-        if new_value > current_value:
-            current_solution = new_solution
-            current_value = new_value
-    
-    # Después de iterar, devolvemos la mejor solución encontrada
-    return current_solution, objective_function(current_solution)
 
-# Ejemplo de uso del algoritmo Hill Climbing
-best_solution, best_value = hill_climbing()
-print("Mejor solución encontrada:", best_solution)
-print("Valor máximo encontrado:", best_value)
+FO = 0
+for j in range (len(data_node.clinic_demand_places)):
+    Valor = dividir_lista(data_node.clinic_demand_places[j])
+
+    if Valor in Verificador:
+        #No hace nada
+        int = 1
+    else:
+        FO = FO + data_node.installation_cost[Valor]
+        Verificador.append(Valor)
+
+print("Valor de la Funcion Objetivo:",FO)
+
+Solucion = []
+
+for j in range (len(data_node.installation_cost)):
+    if j in Verificador:
+        Solucion.append(1)
+    else:
+        Solucion.append(0)
+
+

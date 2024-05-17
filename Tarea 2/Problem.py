@@ -39,6 +39,9 @@ class DataNode:
                 clinic_demand_places.append(sector)
 
             return DataNode(m, n, installation_cost, clinic_demand_places)
+    def get_FO_value(self, X: list):
+        FO_Value = sum([a * b for a, b in zip(X, self.installation_cost)])
+        return FO_Value
 
 #data_node = DataNode.read_data("data/C1.txt")
 
