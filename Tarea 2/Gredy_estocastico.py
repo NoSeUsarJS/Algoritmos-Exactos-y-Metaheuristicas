@@ -1,9 +1,11 @@
-from Problem import DataNode
+from DataNode import DataNode
 import random
 import time
 
-data_node = DataNode.ReadData("data/C1.txt")
+data_node = DataNode("data/C1.txt")
 
+def have_common_places(list1, list2):
+    return len(set(list1).intersection(set(list2))) > 0
 
 Verificador = []
 
@@ -27,12 +29,9 @@ def dividir_lista(lista):
 FO = 0
 start_time = time.time()
 for j in range (len(data_node.clinic_demand_places)):
-    Valor = dividir_lista(data_node.clinic_demand_places[j])
+    if not have_common_places(Verificador, data_node.clinic_demand_places[j]):
+        Valor = dividir_lista(data_node.clinic_demand_places[j])
 
-    if Valor in Verificador:
-        #No hace nada
-        int = 1
-    else:
         FO = FO + data_node.installation_cost[Valor]
         Verificador.append(Valor)
 end_time = time.time()
