@@ -43,3 +43,6 @@ class DataNode:
             self.n = n
             self.installation_cost = installation_cost
             self.clinic_demand_places = clinic_demand_places
+    
+    def get_OF_value(self, solution: list):
+        return sum([a * b for a, b in zip(solution, self.installation_cost)])
