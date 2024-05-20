@@ -7,6 +7,19 @@
 from DataNode import DataNode
 from BuildSolution import build_solution
 from time import time
+import matplotlib.pyplot as plt
+
+def Check_restriction(vecino: list, subconjuntos: list):
+    for i in range (len(subconjuntos)):
+        sum = 0
+        for j in range (len(subconjuntos[i])):
+
+            if vecino[subconjuntos[i][j]-1] == 1:
+                sum = sum + 1
+            #print("Sector:",i, "numero",j,"Valor: ",solution[data_node.clinic_demand_places[i][j]-1], "suma: ",sum)
+        if sum < 1: 
+            return False
+    return True
 
 def hill_climbing(current_solution: list, data_node: DataNode):
     neighborhood = []
@@ -19,16 +32,16 @@ def hill_climbing(current_solution: list, data_node: DataNode):
             new_solution[i] = 1
 
         neighborhood.append(new_solution)
-    
     best_solution = current_solution    
     min_OF_value = data_node.get_OF_value(best_solution)
 
     for solution in neighborhood:
-        current_OF_value = data_node.get_OF_value(solution)
-
-        if current_OF_value < min_OF_value:
-            best_solution = solution
-            min_OF_value = current_OF_value
+        if Check_restriction(solution,data_node.clinic_demand_places) == True:
+            current_OF_value = data_node.get_OF_value(solution)
+            
+            if current_OF_value < min_OF_value:
+                best_solution = solution
+                min_OF_value = current_OF_value
     
     return best_solution
 
@@ -41,9 +54,26 @@ print(data_node.get_OF_value(initial_solution))
 start_time = time()
 
 best_solution = initial_solution
-
-while time() - start_time < 30:
+x = []
+y = []
+#while time() - start_time < 30:
+n = 50
+while(n != 0):
     best_solution = hill_climbing(best_solution, data_node)
     print(data_node.get_OF_value(best_solution))
+    #x.append( time()-start_time)
+    x.append(n)
+    y.append(data_node.get_OF_value(best_solution))
+    n=n-1
 
+x.sort()
 print(data_node.get_OF_value(best_solution))
+#print(x,y)
+plt.plot(x, y)
+plt.title('Gráfico de funcion objetivo vs tiempo')
+plt.xlabel('Iteracion')
+#plt.xlabel('Tiempo (seg)')
+plt.ylabel('Valor de funcion objetivo ($)')
+
+# Mostrar el gráfico
+plt.show()

@@ -15,7 +15,7 @@ start_time = time.time()
 for i in range (len(data_node.clinic_demand_places)):
     if not have_common_places(checker, data_node.clinic_demand_places[i]):
         data_node.clinic_demand_places[i].sort()
-
+        
         fo = fo + data_node.installation_cost[data_node.clinic_demand_places[i][0]-1]
         checker.append(data_node.clinic_demand_places[i][0])
         
@@ -27,7 +27,7 @@ print(f"Execution time: {execution_time}")
 
 solution = []
 for i in range (len(data_node.installation_cost)):
-    if i in checker:
+    if i+1 in checker:
         solution.append(1)
     else:
         solution.append(0)

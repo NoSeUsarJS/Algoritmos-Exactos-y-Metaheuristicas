@@ -44,7 +44,7 @@ print(f"Execution time: {execution_time}")
 
 solution = []
 for j in range (len(data_node.installation_cost)):
-    if j in checker:
+    if j+1 in checker:
         solution.append(1)
     else:
         solution.append(0)
