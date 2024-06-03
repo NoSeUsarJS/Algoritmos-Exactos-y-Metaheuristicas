@@ -8,6 +8,7 @@ from DataNode import DataNode
 from BuildSolution import build_solution
 from time import time
 import matplotlib.pyplot as plt
+import random
 
 def Check_restriction(vecino: list, subconjuntos: list):
     for i in range (len(subconjuntos)):
@@ -47,9 +48,45 @@ def hill_climbing(current_solution: list, data_node: DataNode):
 
 data_node = DataNode("data/C2.txt")
 
-initial_solution = build_solution(data_node)
+def have_common_places(list1, list2):
+    return len(set(list1).intersection(set(list2))) > 0
 
-print(data_node.get_OF_value(initial_solution))
+def random_selection(list: list) -> int:
+    N = len(list)
+    weights = [N**4-i**4 for i in range(N)]
+    
+    total_weight = sum(weights)
+    rand_num = random.uniform(0, total_weight*0.1)
+    cumulative_weight = 0
+    for i, weight in enumerate(weights):
+        cumulative_weight += weight
+        if rand_num <= cumulative_weight:
+            return list[i]
+
+
+checker = []
+
+fo = 0
+
+
+for i in range (len(data_node.clinic_demand_places)):
+    if not have_common_places(checker, data_node.clinic_demand_places[i]):
+
+        data_node.clinic_demand_places[i].sort()
+
+        selected_place = random_selection(data_node.clinic_demand_places[i])
+
+        fo = fo + data_node.installation_cost[selected_place-1]
+        checker.append(selected_place)
+
+
+initial_solution = []
+for j in range (len(data_node.installation_cost)):
+    if j+1 in checker:
+        initial_solution.append(1)
+    else:
+        initial_solution.append(0)
+
 
 start_time = time()
 
@@ -60,10 +97,10 @@ y = []
 n = 50
 while(n != 0):
     best_solution = hill_climbing(best_solution, data_node)
-    print(data_node.get_OF_value(best_solution))
+    print("Valor FO: ",data_node.get_OF_value(best_solution),"Tiempo de ejecucion", time() - start_time )
     #x.append( time()-start_time)
     x.append(n)
-    y.append(data_node.get_OF_value(best_solution))
+    y.append( data_node.get_OF_value(best_solution))
     n=n-1
 
 x.sort()

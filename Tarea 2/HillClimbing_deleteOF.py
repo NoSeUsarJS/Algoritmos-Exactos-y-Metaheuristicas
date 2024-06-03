@@ -56,8 +56,46 @@ def hill_climbing(current_solution: list, data_node: DataNode):
                 min_OF_value = current_OF_value
     
     return best_solution
+data_node = DataNode("data/C1.txt")
 
-data_node = DataNode("data/C2.txt")
+def have_common_places(list1, list2):
+    return len(set(list1).intersection(set(list2))) > 0
+
+def random_selection(list: list) -> int:
+    N = len(list)
+    weights = [N**4-i**4 for i in range(N)]
+    
+    total_weight = sum(weights)
+    rand_num = random.uniform(0, total_weight*0.1)
+    cumulative_weight = 0
+    for i, weight in enumerate(weights):
+        cumulative_weight += weight
+        if rand_num <= cumulative_weight:
+            return list[i]
+
+
+checker = []
+
+fo = 0
+
+
+for i in range (len(data_node.clinic_demand_places)):
+    if not have_common_places(checker, data_node.clinic_demand_places[i]):
+
+        data_node.clinic_demand_places[i].sort()
+
+        selected_place = random_selection(data_node.clinic_demand_places[i])
+
+        fo = fo + data_node.installation_cost[selected_place-1]
+        checker.append(selected_place)
+
+
+initial_solution = []
+for j in range (len(data_node.installation_cost)):
+    if j+1 in checker:
+        initial_solution.append(1)
+    else:
+        initial_solution.append(0)
 
 initial_solution = build_solution(data_node)
 
@@ -73,7 +111,7 @@ best_solution = initial_solution
 x = []
 y = []
 start_time = time()
-while time() - start_time < 150:
+while time() - start_time < 60:
 #n = 50
 #while(n != 0):
     best_solution = hill_climbing(best_solution, data_node)
@@ -84,8 +122,9 @@ while time() - start_time < 150:
     n=n-1
 
 #x.sort()
-print(data_node.get_OF_value(best_solution))
+print("Valor de la funcion objetivo",data_node.get_OF_value(best_solution), "Tiempo de procesamiento",time()-start_time)
 #print(x,y)
+
 plt.plot(x, y)
 plt.title('Gráfico de funcion objetivo vs tiempo')
 #plt.xlabel('Iteracion')
