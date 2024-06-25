@@ -1,6 +1,6 @@
 import numpy as np
 
-
+# Minimos de las ecuaciones.
 def equation1(X):
     return (X**2) - 10 * np.cos(2 * np.pi * X) + 10
 # d = 10, −5.12 ≤ xi ≤ 5.12 ∀i = 1, ..., d.
@@ -32,5 +32,3 @@ def solution3(d,x: list):
         #print(sum)
     return sum
 
-
-      
