@@ -18,9 +18,9 @@ def fitness_func(ga_instance, solution, solution_idx):
     return -solution3(d, solution)
 
 # Configuración del algoritmo genético
-num_generations = 100  # Número de generaciones
-num_parents_mating = 5  # Número de padres que se seleccionarán para reproducirse
-sol_per_pop = 20  # Tamaño de la población
+num_generations = 1600  # Número de generaciones
+num_parents_mating = 1  # Número de padres que se seleccionarán para reproducirse
+sol_per_pop = 100  # Tamaño de la población
 num_genes = 5
 # Rango de los valores de las soluciones (genes)
 gene_space = {'low': 0, 'high': np.pi}

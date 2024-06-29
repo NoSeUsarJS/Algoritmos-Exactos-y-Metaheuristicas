@@ -20,9 +20,9 @@ def fitness_func(ga_instance, solution, solution_idx):
 
 
 # Configuración del algoritmo genético
-num_generations = 100  
-num_parents_mating = 5  
-sol_per_pop = 20  
+num_generations = 100
+num_parents_mating = 1
+sol_per_pop = 400  
 num_genes = 20 # d
 gene_space = {'low': -30, 'high': 30}
 
